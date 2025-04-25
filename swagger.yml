@@ -87,7 +87,7 @@ parameters:
 # This is where the resource paths are defined
 paths:
   # Vacation API            
-  /findfib/{number}:
+  /findfib?number={number}:
     get:
       summary: this is a get fibonacci value for the given number
       description: Returns the value of the {number}'s position value in fibonacci series     
