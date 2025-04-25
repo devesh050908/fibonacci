@@ -63,7 +63,7 @@ definitions:
       output:
         type: string
       
-    example:
+    example:  
       {
         Output: '55',
       }
@@ -76,18 +76,18 @@ parameters:
       type: string
       required: true
       
-# # Security Definitions
-# securityDefinitions:
-#   KeySecurity:
-#     type: apiKey
-#     in: query
-#     name: api_key
+# Security Definitions
+securityDefinitions:
+  KeySecurity:
+    type: apiKey
+    in: query
+    name: api_key
 
 ########### Part 3 ########
 # This is where the resource paths are defined
 paths:
   # Vacation API            
-  /findfib?number={number}:
+  /findfib:
     get:
       summary: this is a get fibonacci value for the given number
       description: Returns the value of the {number}'s position value in fibonacci series     
