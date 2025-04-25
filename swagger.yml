@@ -1,0 +1,50 @@
+# Swagger 2.0 demo used in the REST API Course
+# http://www.acloudfan.com
+# Part 2 of the incremental creation of the swagger for
+# Vacations API for the fictitious enterprise "ACME Travels"
+
+# Swagger 2.0 always begin with the following
+swagger: "2.0"
+
+########### Part 1 ###########
+
+# git checkout  rootdocument
+# to check the content in part-1
+
+########### Part 2 ########
+
+# definitions + parameters + securityDefinitions
+definitions:
+  # A general message schema in case of an error
+  GeneralError:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+
+# Parameter Definitions
+# Common parameters used in the operations
+parameters:
+  InputNumber:
+      name: number
+      in: path
+      type: string
+      required: true
+      
+# Security Definitions
+securityDefinitions:
+  KeySecurity:
+    type: apiKey
+    in: query
+    name: api_key
+
+########### Part 3 ########
+
+# git checkout  paths
+# to check the content in part-3
+
+########### Final Swagger ###
+
+# git checkout  final
+# to check the content for final state of the swagger
