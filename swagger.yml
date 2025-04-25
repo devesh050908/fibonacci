@@ -1,6 +1,6 @@
 # Swagger 2.0 demo used in the REST API Course
 # http://www.acloudfan.com
-# Part 2 of the incremental creation of the swagger for
+# Part 1 of the incremental creation of the swagger for
 # Vacations API for the fictitious enterprise "ACME Travels"
 
 # Swagger 2.0 always begin with the following
@@ -8,12 +8,46 @@ swagger: "2.0"
 
 ########### Part 1 ###########
 
-# git checkout  rootdocument
-# to check the content in part-1
+info:
+  version: "0.0.1"
+  title: Fibonacci series nth value
+  description: This specification is for the Fibonacci series nth value deduction |
+               These specifications were used 
+               to create the Swagger specifications for their REST API
+  contact:
+    name: Dhanasekar 
+    url: http://www.google.com
+    email: sekar.dhana@gmail.com
+    
+  license:
+    name: GNU
+    url: http://google.com
+
+# during dev, should point to your local machine
+host: localhost:3000
+# basePath prefixes all resource paths- Version 1.0
+basePath: /v1/
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+# Tags for ACME Travel API
+tags:
+  - name: Fibonacci
+    description: Refer to Fibonacci
+    
+externalDocs:
+    description: This is an external doc
+    url: http://google.com
 
 ########### Part 2 ########
-
-# definitions + parameters + securityDefinitions
 definitions:
   # A general message schema in case of an error
   GeneralError:
@@ -22,27 +56,64 @@ definitions:
     properties:
       message:
         type: string
-
+  # Fibonacci api output schema 
+  FibonacciOutput:
+    properties:
+      # Output Valkue
+      output:
+        type: string
+      
+    example:
+      {
+        Output: '55',
+      }
 # Parameter Definitions
 # Common parameters used in the operations
 parameters:
-  InputNumber:
+  NumberInQuery:
       name: number
-      in: path
+      in: query
       type: string
       required: true
       
-# Security Definitions
-securityDefinitions:
-  KeySecurity:
-    type: apiKey
-    in: query
-    name: api_key
+# # Security Definitions
+# securityDefinitions:
+#   KeySecurity:
+#     type: apiKey
+#     in: query
+#     name: api_key
 
 ########### Part 3 ########
+# This is where the resource paths are defined
+paths:
+  # Vacation API            
+  /findfib/{number}:
+    get:
+      summary: this is a get fibonacci value for the given number
+      description: Returns the value of the {number}'s position value in fibonacci series     
+      consumes: 
+        - application/json
+      produces: 
+        - application/json
 
-# git checkout  paths
-# to check the content in part-3
+      parameters:
+        - $ref : "#/parameters/NumberInQuery"
+        
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FibonacciOutput"
+            
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/GeneralError"
+      security:
+        # Array elements needed only in case of OAuth otherwise MUST be empty. In case of OAuth array has the scopes
+        - KeySecurity : []
+
 
 ########### Final Swagger ###
 
